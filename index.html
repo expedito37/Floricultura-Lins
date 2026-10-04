@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- ============================================================================
+     index.html — Aura Estética
+     Única página HTML do projeto (SPA React + Vite). O React desenha o site
+     dentro da <div id="root">. Aqui ficam título, descrição, ícone e fontes.
+     ============================================================================ -->
+<html lang="pt-BR">
+  <head>
+    <!-- Codificação de caracteres (acentos e símbolos aparecem certos) -->
+    <meta charset="UTF-8" />
+
+    <!-- Faz o site se ajustar à largura da tela no celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Cor da barra do navegador no celular (combina com a cor principal) -->
+    <meta name="theme-color" content="#8c3b5a" />
+
+    <!-- Ícone da aba do navegador (favicon), usando a imagem.webp da pasta public -->
+<link rel="icon" type="image/webp" href="/aura2.webp" />
+
+    <!-- Fontes do Google carregadas aqui no HTML (mais rápido que @import no CSS):
+         Playfair Display (títulos), DM Sans (textos) e Cinzel Decorative (fantasia/luxo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Link completo do Google Fonts (css2) com as famílias e pesos usados no site -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Título da aba e descrição para o Google (SEO) -->
+    <title>Aura Estética — Cuidado que revela o seu melhor</title>
+    <meta
+      name="description"
+      content="Aura Estética: tratamentos faciais, corporais e injetáveis com protocolos personalizados. Agende sua avaliação pelo WhatsApp."
+    />
+  </head>
+  <body>
+    <!-- Aqui o React desenha o site inteiro -->
+    <div id="root"></div>
+
+    <!-- Ponto de entrada da aplicação (Vite carrega o main.tsx) -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

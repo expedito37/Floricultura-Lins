@@ -1,0 +1,92 @@
+/* ============================================================================
+   Faq.module.css
+   ----------------------------------------------------------------------------
+   Duas colunas: título fixo à esquerda e sanfona à direita. O ícone "+" gira
+   e vira um "x" quando a pergunta está aberta.
+   ============================================================================ */
+
+/* Grade de duas colunas (a do título é mais estreita) */
+.layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 64px;
+  align-items: start; /* necessário para o "sticky" da coluna esquerda funcionar */
+}
+
+/* Coluna do título: acompanha a rolagem enquanto as perguntas passam */
+.lateral {
+  position: sticky;
+  top: calc(var(--altura-cabecalho) + 24px); /* fica logo abaixo do cabeçalho fixo */
+}
+
+/* Lista de perguntas */
+.lista {
+  display: grid;
+  gap: 12px;
+}
+
+/* Cada pergunta é um cartão branco */
+.item {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Cartão aberto ganha sombra */
+.item[open] {
+  box-shadow: var(--sombra);
+}
+
+/* Linha da pergunta (sempre visível) */
+.pergunta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none; /* tira a setinha padrão do navegador */
+}
+
+/* Tira a setinha padrão no Safari/Chrome antigos */
+.pergunta::-webkit-details-marker {
+  display: none;
+}
+
+/* Ícone "+" desenhado com texto */
+.pergunta::after {
+  content: "+";
+  flex-shrink: 0; /* o ícone nunca encolhe quando a pergunta é longa */
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--cor-principal);
+  transition: transform 0.25s ease;
+}
+
+/* Aberto: o "+" gira 45° e vira um "x" */
+.item[open] .pergunta::after {
+  transform: rotate(45deg);
+}
+
+/* Resposta (aparece ao abrir) */
+.resposta {
+  margin: 0;
+  padding: 0 24px 22px;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Tablet e celular: uma coluna, título deixa de acompanhar a rolagem ----- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .lateral {
+    position: static;
+  }
+}

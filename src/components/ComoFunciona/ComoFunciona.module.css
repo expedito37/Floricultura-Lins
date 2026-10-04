@@ -1,0 +1,106 @@
+/* ============================================================================
+   ComoFunciona.module.css
+   ----------------------------------------------------------------------------
+   Desktop: 4 passos lado a lado, ligados por uma linha tracejada dourada.
+   Celular: passos empilhados, com a linha tracejada na vertical.
+   ============================================================================ */
+
+/* Cabeçalho centralizado */
+.cabecalho {
+  max-width: 640px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+/* Lista de passos: 4 colunas iguais */
+.passos {
+  list-style: none; /* tira a numeração padrão (usamos o círculo próprio) */
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Cada passo: texto centralizado */
+.passo {
+  position: relative; /* necessário para a linha tracejada (::after) */
+  text-align: center;
+}
+
+/* Círculo com o número */
+.numero {
+  position: relative;
+  z-index: 1; /* fica na frente da linha tracejada */
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--cor-principal);
+  color: #fff;
+  font-family: var(--fonte-titulo);
+  font-size: 1.4rem;
+}
+
+/* Linha tracejada ligando este passo ao próximo (não existe no último) */
+.passo:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 27px; /* meio do círculo de 56px */
+  left: calc(50% + 40px); /* começa logo depois do círculo */
+  width: calc(100% - 56px); /* termina antes do círculo do próximo passo */
+  border-top: 2px dashed var(--cor-detalhe);
+}
+
+.titulo {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.descricao {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Celular: passos empilhados ----- */
+@media (max-width: 800px) {
+  .passos {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Círculo à esquerda (ocupa 2 linhas), título e texto à direita */
+  .passo {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 18px;
+    text-align: left;
+  }
+
+  .numero {
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
+
+  .titulo {
+    margin: 0 0 4px;
+    align-self: end;
+  }
+
+  .descricao {
+    grid-column: 2;
+  }
+
+  /* Linha tracejada vira vertical, descendo do círculo até o próximo */
+  .passo:not(:last-child)::after {
+    top: 60px;
+    left: 27px;
+    width: 0;
+    height: calc(100% - 32px);
+    border-top: none;
+    border-left: 2px dashed var(--cor-detalhe);
+  }
+}

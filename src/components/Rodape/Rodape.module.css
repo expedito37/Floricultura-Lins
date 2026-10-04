@@ -1,0 +1,87 @@
+/* ============================================================================
+   Rodape.module.css
+   ----------------------------------------------------------------------------
+   Rodapé grafite com três colunas (marca, navegação, redes) e uma barra de
+   copyright separada por uma linha fina.
+   ============================================================================ */
+
+/* Faixa inteira do rodapé */
+.rodape {
+  padding: 64px 0 0;
+  background: var(--cor-grafite);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Três colunas: a da marca é mais larga */
+.colunas {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 48px;
+}
+
+/* Nome da clínica */
+.marca {
+  margin: 0 0 8px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.slogan {
+  max-width: 32ch;
+  margin: 0;
+}
+
+/* Títulos das colunas (h3): pequenos, dourados e em maiúsculas.
+   Precisam de cor própria porque o h3 padrão do index.css é escuro. */
+.titulo {
+  margin: 0 0 16px;
+  font-family: var(--fonte-corpo);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cor-detalhe);
+}
+
+/* Listas de links sem marcadores */
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+/* Barra final com o copyright */
+.barra {
+  margin: 48px 0 0;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ----- Celular: colunas empilhadas ----- */
+@media (max-width: 800px) {
+  .colunas {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Espaço extra embaixo, para o botão flutuante do WhatsApp não cobrir o copyright */
+  .barra {
+    padding-bottom: 96px;
+  }
+}

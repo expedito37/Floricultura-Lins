@@ -1,0 +1,304 @@
+/* ============================================================================
+   Hero.module.css
+   ----------------------------------------------------------------------------
+   Estilo da seção Hero: duas colunas (texto à esquerda, imagem à direita).
+   No celular as colunas se empilham (texto em cima, imagem embaixo).
+   A seção tem uma IMAGEM DE FUNDO (vinda do Hero.tsx via style inline) com
+   uma PELÍCULA ESCURA em degradê por cima: mais escura no lado do texto
+   (esquerda) e um pouco mais leve no lado da foto (direita).
+   Animações: o texto sobe suavemente e a imagem aparece com zoom leve,
+   uma única vez, quando a seção aparece na tela (a classe "visivel" é
+   colocada pelo Hero.tsx).
+   ============================================================================ */
+
+/* Seção inteira: define o respiro vertical, esconde sobras laterais
+   e configura a imagem de fundo (o "url(...)" em si vem do Hero.tsx) */
+.hero {
+  /* Força da película: 0 = transparente, 1 = preto total.
+     Mude só estes dois valores para clarear ou escurecer */
+  --pelicula-esquerda: 0.8; /* lado do texto */
+  --pelicula-direita: 0.5; /* lado da foto */
+
+  position: relative; /* necessário para a película (::before) se posicionar dentro da seção */
+  padding: 80px 0;
+  overflow: hidden;
+
+  /* Configuração da imagem de fundo */
+  background-size: cover; /* cobre a seção toda sem distorcer */
+  background-position: center; /* mantém o centro da foto sempre visível */
+  background-repeat: no-repeat; /* não repete a imagem */
+  background-color: #1a1512; /* cor de segurança enquanto a imagem carrega ou se não houver imagem */
+}
+
+/* Película escura por cima da imagem de fundo (degradê da esquerda para a direita) */
+/* Película escura por cima da imagem de fundo (degradê da esquerda para a direita) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* ocupa a seção inteira */
+  background: linear-gradient(
+    90deg, /* direção do degradê: da esquerda para a direita */
+    /* lado esquerdo: opacidade original x 0.7 (30% mais clara), termina em 30% da largura */
+    rgba(0, 0, 0, calc(var(--pelicula-esquerda) * 0.7)) 30%,
+    /* lado direito: opacidade original x 0.7 (30% mais clara), termina em 100% da largura */
+    rgba(0, 0, 0, calc(var(--pelicula-direita) * 0.7)) 100%
+  );
+  z-index: 0; /* fica atrás do conteúdo */
+  pointer-events: none; /* não bloqueia cliques nos botões */
+}
+
+/* Grade principal: divide o conteúdo em 2 colunas lado a lado.
+   A coluna da direita é um pouco maior, porque guarda texto + imagem juntos.
+   "position + z-index" colocam o conteúdo SEMPRE acima da película */
+.grade {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  align-items: center; /* centraliza texto e imagem na vertical */
+  gap: 56px;
+}
+
+/* ---------------------------------------------------------------------------
+   ANIMAÇÕES
+   --------------------------------------------------------------------------- */
+
+/* Texto: nasce 28px mais baixo e transparente, e sobe até a posição final */
+@keyframes subirTexto {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Imagem: nasce menor, transparente e deslocada, e se acomoda no lugar */
+@keyframes surgirImagem {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade simples (só aparece, sem mover): usado por quem reduz movimento no sistema */
+@keyframes aparecerSimples {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Estado inicial: tudo que vai animar começa invisível.
+   IMPORTANTE: nenhum desses elementos pode ter "opacity" própria em outra
+   regra, senão ela vence esta e o item pisca. */
+.texto > *,
+.textoLado,
+.visual {
+  opacity: 0;
+}
+
+/* Quando a seção fica visível, o texto sobe um item por vez (efeito em cascata).
+   "both" = mantém o primeiro quadro (invisível) durante o atraso e o último
+   (visível) depois de terminar, então nada pisca entre uma fase e outra */
+.visivel .texto > * {
+  animation: subirTexto 0.8s ease-out both;
+}
+
+/* Atrasos escalonados: cada filho do .texto entra um pouco depois do anterior */
+.visivel .texto > *:nth-child(1) { animation-delay: 0.1s; }
+.visivel .texto > *:nth-child(2) { animation-delay: 0.25s; }
+.visivel .texto > *:nth-child(3) { animation-delay: 0.4s; }
+.visivel .texto > *:nth-child(4) { animation-delay: 0.55s; }
+
+/* O texto curto ao lado da imagem sobe logo depois do texto principal */
+.visivel .textoLado {
+  animation: subirTexto 0.8s ease-out 0.6s both;
+}
+
+/* A imagem (ou o espaço reservado) surge por último, com zoom suave */
+.visivel .visual {
+  animation: surgirImagem 1s ease-out 0.5s both;
+}
+
+/* Com "reduzir movimento" ligado no sistema, troca subir/zoom por um fade suave
+   (precisa ficar DEPOIS das regras acima para sobrescrevê-las) */
+@media (prefers-reduced-motion: reduce) {
+  .visivel .texto > *,
+  .visivel .textoLado,
+  .visivel .visual {
+    animation-name: aparecerSimples;
+    animation-fill-mode: both;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   COLUNA DO TEXTO (esquerda)
+   --------------------------------------------------------------------------- */
+
+/* Empilha etiqueta, título, subtítulo e botões com espaçamento entre eles */
+.texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Título principal (h1): fluido, cresce/diminui conforme a largura da tela.
+   Branco, porque fica sobre a imagem escurecida */
+.titulo {
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  line-height: 1.1;
+  margin: 0;
+  color: #fff;
+}
+
+/* Subtítulo: texto de apoio, com largura limitada para facilitar a leitura.
+   Branco suave sobre o fundo escuro */
+.subtitulo {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85); /* no lugar de opacity, para não brigar com a animação */
+}
+
+/* Linha dos botões: ficam lado a lado e quebram de linha se faltar espaço */
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+}
+.rotulo{
+  color:#ffff;
+  margin-top: 10px;;
+}
+/* ---------------------------------------------------------------------------
+   COLUNA DA DIREITA (texto curto + imagem, um ao lado do outro)
+   --------------------------------------------------------------------------- */
+
+/* Container: texto e imagem lado a lado */
+.ladoImagem {
+  /* Deixa os itens lado a lado (em linha) */
+  display: flex;
+  flex-direction: row;
+
+  /* Alinha os itens verticalmente pelo centro */
+  align-items: center;
+
+  /* Espaço entre o texto e a imagem */
+  gap: 32px;
+
+  /* Se não couber na tela, os itens quebram para a linha de baixo */
+  flex-wrap: wrap;
+}
+
+/* Bloco de texto ao lado da imagem (título + parágrafo) */
+/* O nome precisa ser idêntico ao do TSX: textoLado, com L maiúsculo */
+.textoLado {
+  /* Ocupa metade do espaço e pode crescer/encolher */
+  flex: 1 1 200px;
+
+  /* Empilha título e parágrafo */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Título do texto ao lado da imagem (h2 com a classe textoImagemH1) */
+.textoImagemH1 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0;
+  font-family: "Bodoni Moda", serif; /* alto contraste, estilo revista */
+  color: #fff; /* branco sobre o fundo escurecido */
+}
+
+/* Parágrafo do texto ao lado da imagem (hero.textoImagem) */
+.textoImagem {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85); /* no lugar de opacity, mesmo motivo do subtítulo */
+}
+
+/* Área visual: guarda a foto ou o espaço reservado */
+.visual {
+  /* Ocupa a outra metade e respeita o limite de largura */
+  flex: 1 1 260px;
+  max-width: 460px;
+
+  /* Empurra a imagem para a direita da linha */
+  margin-left: auto;
+}
+
+/* Foto em formato de arco (topo arredondado, base reta) */
+.foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5; /* proporção retrato */
+  object-fit: cover; /* preenche sem distorcer */
+  object-position: 65% center;
+  border-radius: 999px 999px 24px 24px; /* topo em arco */
+}
+
+/* Espaço reservado quando ainda não há foto (mesmo formato de arco) */
+.espacoFoto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 24px 24px;
+  background: #e8dcd3; /* cor provisória; troque pela cor da marca */
+  color: #7a6a5f;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------------------
+   RESPONSIVO (tablet e celular)
+   --------------------------------------------------------------------------- */
+
+/* Até 900px de largura: vira uma coluna só, texto em cima e imagem embaixo */
+@media (max-width: 900px) {
+  .hero {
+    padding: 48px 0;
+
+    /* No celular o texto fica por cima de toda a imagem,
+       então a película fica forte dos dois lados */
+    --pelicula-esquerda: 0.75;
+    --pelicula-direita: 0.75;
+  }
+
+  .grade {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Texto centralizado no celular */
+  .texto {
+    align-items: center;
+    text-align: center;
+  }
+
+  .acoes {
+    justify-content: center;
+  }
+
+  /* Texto curto e imagem centralizados quando quebram de linha */
+  .ladoImagem {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .visual {
+    max-width: 360px;
+    margin: 0 auto; /* centraliza a imagem no celular */
+  }
+}

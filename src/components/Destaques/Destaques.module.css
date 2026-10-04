@@ -1,0 +1,74 @@
+/* ============================================================================
+   Destaques.module.css
+   ----------------------------------------------------------------------------
+   Cartão branco com 4 números lado a lado, sobreposto ao final do Hero.
+   ============================================================================ */
+
+/* Faixa: sobe 48px sobre o Hero (margem negativa) e fica na frente dele (z-index) */
+.faixa {
+  position: relative;
+  z-index: 2;
+  margin-top: -48px;
+  padding-bottom: 24px;
+}
+
+/* O cartão em si: grade de 4 colunas iguais */
+.cartao {
+  list-style: none; /* tira as bolinhas da lista */
+  margin: 0;
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* Cada número + descrição, empilhados e centralizados */
+.item {
+  position: relative; /* necessário para a divisória (::before) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+/* Divisória vertical entre os itens (não aparece antes do primeiro) */
+.item + .item::before {
+  content: "";
+  position: absolute;
+  left: -12px; /* metade do gap de 24px */
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: var(--cor-borda);
+}
+
+/* Número grande, na fonte de títulos e na cor principal */
+.valor {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--cor-principal);
+  line-height: 1.1;
+}
+
+/* Descrição pequena embaixo do número */
+.legenda {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Celular: 2 colunas por linha, sem divisórias ----- */
+@media (max-width: 700px) {
+  .cartao {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+  }
+
+  .item + .item::before {
+    display: none; /* as divisórias ficariam desalinhadas em 2 colunas */
+  }
+}

@@ -1,0 +1,75 @@
+/* ============================================================================
+   WhatsAppFlutuante.module.css
+   ----------------------------------------------------------------------------
+   Botão verde fixo no canto inferior direito: pílula com texto no computador,
+   círculo só com o ícone no celular, com um anel pulsante em volta.
+   ============================================================================ */
+
+/* Botão em formato de pílula */
+.botao {
+  position: fixed; /* preso à janela: acompanha a rolagem */
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000; /* acima do cabeçalho (900) e da gaveta do menu (1001 é só a gaveta aberta) */
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 22px 0 16px;
+
+  border-radius: 999px;
+  background: var(--cor-whatsapp);
+  color: #fff; /* cor do ícone e do texto */
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease;
+
+  /* Anel pulsante: definido em @keyframes pulsar, logo abaixo */
+  animation: pulsar 2.4s ease-out infinite;
+}
+
+.botao:hover {
+  transform: translateY(-3px);
+  animation-play-state: paused; /* para o anel enquanto o mouse está em cima */
+}
+
+/* O anel é uma sombra sem desfoque que cresce e some */
+@keyframes pulsar {
+  0% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22), 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  70% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22), 0 0 0 16px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22), 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* O index.css encurta TODAS as animações para quem prefere menos movimento, mas uma
+   animação infinita encurtada ficaria piscando. Por isso aqui ela é desligada de vez. */
+@media (prefers-reduced-motion: reduce) {
+  .botao {
+    animation: none;
+  }
+}
+
+/* ----- Celular: só o ícone, em círculo ----- */
+@media (max-width: 640px) {
+  .botao {
+    right: 16px;
+    bottom: 16px;
+    width: 58px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  /* Esconde o texto (o aria-label do link continua avisando leitores de tela) */
+  .texto {
+    display: none;
+  }
+}

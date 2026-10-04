@@ -1,0 +1,113 @@
+/* ============================================================================
+   Contato.module.css
+   ----------------------------------------------------------------------------
+   Duas colunas: três cartões brancos empilhados à esquerda e o mapa à direita.
+   No celular o mapa vai para baixo dos cartões.
+   ============================================================================ */
+
+/* Cabeçalho centralizado */
+.cabecalho {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+/* Grade de duas colunas (cartões um pouco mais estreitos que o mapa) */
+.grade {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  align-items: stretch; /* o mapa acompanha a altura dos cartões */
+}
+
+/* Coluna dos cartões */
+.infos {
+  display: grid;
+  gap: 16px;
+}
+
+/* Cartão branco */
+.cartao {
+  padding: 24px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+/* Subtítulo pequeno, em maiúsculas e na cor principal */
+.subtitulo {
+  margin: 0 0 10px;
+  font-family: var(--fonte-corpo);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cor-principal);
+}
+
+/* <address> vem em itálico por padrão; aqui volta ao normal */
+.endereco {
+  font-style: normal;
+  color: var(--cor-texto);
+}
+
+.linha {
+  margin: 0 0 4px;
+}
+
+/* Links de e-mail e telefone: sem sublinhado, ficam ameixa ao passar o mouse */
+.link {
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--cor-principal);
+}
+
+/* Lista de horários */
+.horarios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada horário: dias à esquerda, horas à direita, com linha pontilhada embaixo */
+.horario {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--cor-borda);
+  font-size: 0.95rem;
+}
+
+.horario:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Caixa do mapa */
+.mapa {
+  min-height: 420px;
+  overflow: hidden; /* faz o border-radius cortar as bordas retas do iframe */
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ----- Tablet e celular: uma coluna ----- */
+@media (max-width: 900px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+
+  .mapa {
+    min-height: 320px;
+  }
+}

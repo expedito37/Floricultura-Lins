@@ -1,0 +1,71 @@
+/* ============================================================================
+   ChamadaFinal.module.css
+   ----------------------------------------------------------------------------
+   Faixa de largura total em degradê ameixa, com dois círculos translúcidos de
+   decoração e um botão branco em destaque.
+   ============================================================================ */
+
+/* Faixa inteira */
+.faixa {
+  position: relative;
+  padding: 88px 0;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--cor-principal-escura), var(--cor-principal));
+  overflow: hidden; /* corta os círculos que saem da faixa */
+}
+
+/* Dois círculos decorativos nos cantos (só enfeite, não recebem clique) */
+.faixa::before,
+.faixa::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.faixa::before {
+  top: -120px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+}
+
+.faixa::after {
+  right: -100px;
+  bottom: -140px;
+  width: 380px;
+  height: 380px;
+}
+
+/* Conteúdo na frente dos círculos */
+.conteudo {
+  position: relative;
+  z-index: 1;
+}
+
+/* O h2 usa a cor escura por padrão (index.css); aqui vira branco */
+.titulo {
+  max-width: 22ch; /* limita a largura para o título quebrar em linhas equilibradas */
+  margin: 0 auto 16px;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  color: #fff;
+}
+
+.texto {
+  max-width: 52ch;
+  margin: 0 auto 32px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Botão branco com texto ameixa (inverte as cores do botão normal) */
+.botao {
+  background: #fff;
+  color: var(--cor-principal);
+}
+
+.botao:hover {
+  background: var(--cor-suave);
+}

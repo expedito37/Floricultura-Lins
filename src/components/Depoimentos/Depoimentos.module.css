@@ -1,0 +1,101 @@
+/* ============================================================================
+   Depoimentos.module.css
+   ----------------------------------------------------------------------------
+   Seção escura (grafite) com 3 cards translúcidos. No celular os cards viram
+   uma faixa horizontal que "encaixa" a cada arrasto (scroll-snap).
+   ============================================================================ */
+
+/* Fundo escuro da seção */
+.depoimentos {
+  background: var(--cor-grafite);
+  color: #fff;
+}
+
+/* Cabeçalho centralizado */
+.cabecalho {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+/* O h2 usa a cor escura por padrão (index.css); aqui vira branco.
+   :global(.rotulo) alcança a classe global "rotulo" do index.css, que
+   em fundo escuro precisa da cor dourada para ter contraste. */
+.cabecalho h2 {
+  color: #fff;
+}
+
+.cabecalho :global(.rotulo) {
+  color: var(--cor-detalhe);
+}
+
+/* Desktop: 3 cards lado a lado */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Card translúcido sobre o fundo escuro */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--raio);
+}
+
+/* Estrelas douradas */
+.estrelas {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--cor-detalhe);
+}
+
+/* Texto do depoimento; flex: 1 empurra o autor para a base do card */
+.texto {
+  flex: 1;
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Autor: linha fina em cima, nome e tratamento empilhados */
+.autor {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nome {
+  color: #fff;
+}
+
+.tratamento {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ----- Tablet e celular: faixa horizontal com encaixe ----- */
+@media (max-width: 900px) {
+  .grade {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto; /* permite arrastar para o lado */
+    scroll-snap-type: x mandatory; /* cada card "encaixa" ao soltar */
+    /* Truque: a faixa vai até as bordas da tela, mas o primeiro card continua alinhado ao conteúdo */
+    margin: 0 -24px;
+    padding: 0 24px 12px;
+    scroll-padding: 0 24px;
+  }
+
+  .card {
+    flex: 0 0 85%; /* cada card ocupa 85% da largura, deixando o próximo "espiar" */
+    scroll-snap-align: start;
+  }
+}

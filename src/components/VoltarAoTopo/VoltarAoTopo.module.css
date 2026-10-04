@@ -1,0 +1,82 @@
+/* ============================================================================
+   VoltarAoTopo.module.css
+   ----------------------------------------------------------------------------
+   Estilo do botão flutuante "voltar ao topo": redondo, fixo no canto inferior
+   direito da tela, ACIMA do botão do WhatsApp (os dois não se sobrepõem).
+   Começa escondido (transparente e deslocado para baixo) e aparece com um
+   deslize suave quando o componente coloca a classe "visivel".
+   ============================================================================ */
+
+/* Botão: círculo fixo no canto da tela, escondido por padrão */
+.botao {
+  position: fixed;
+
+  /* Posição: o WhatsApp ocupa bottom 20px + altura 58px = 78px.
+     Aqui: 78px + 12px de respiro = 90px.
+     right: 25px alinha o centro deste círculo (48px) com o do WhatsApp (58px, right 20px) */
+  left: 22px;
+  bottom: 50px;
+  z-index: 999; /* acima das seções e do cabeçalho (900), logo abaixo do WhatsApp (1000) */
+
+  /* Centraliza a seta dentro do círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  /* Usa a cor da marca se existir no index.css; senão, um tom provisório */
+  background: var(--cor-primaria, #b08968);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+
+  /* Estado escondido: transparente, 16px mais baixo e sem receber cliques */
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+
+  /* Suaviza a entrada/saída e o efeito ao passar o mouse */
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+}
+
+/* Estado visível: opaco, na posição final e clicável */
+.visivel {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Ao passar o mouse, sobe um pouquinho */
+.visivel:hover {
+  transform: translateY(-3px);
+}
+
+/* Contorno visível para quem navega pelo teclado */
+.botao:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Quem reduz movimento no sistema: sem deslizes, só aparece/some */
+@media (prefers-reduced-motion: reduce) {
+  .botao,
+  .visivel:hover {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+}
+
+/* Celular: o WhatsApp vira círculo de 58px em bottom 16px (topo em 74px).
+   Aqui: 74px + 12px de respiro = 86px; right 23px centraliza o círculo de 44px */
+@media (max-width: 640px) {
+  .botao {
+    right: 23px;
+    bottom: 86px;
+    width: 44px;
+    height: 44px;
+  }
+}

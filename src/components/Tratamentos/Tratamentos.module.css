@@ -1,0 +1,145 @@
+/* ============================================================================
+   Tratamentos.module.css
+   ----------------------------------------------------------------------------
+   Fundo rosa claro, abas de filtro em formato de pílula e cards com texto
+   alinhado à esquerda (diferente dos cards centralizados do Viver Bem).
+   ============================================================================ */
+
+/* Fundo da seção (alterna com as seções de fundo claro) */
+.tratamentos {
+  background: var(--cor-suave);
+}
+
+/* Cabeçalho centralizado, com largura limitada */
+.cabecalho {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.subtitulo {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+/* Linha de botões de filtro (quebra de linha no celular) */
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* Botão de filtro inativo */
+.aba {
+  padding: 10px 22px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-family: var(--fonte-corpo);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.aba:hover {
+  border-color: var(--cor-principal);
+}
+
+/* Botão de filtro ativo: preenchido com a cor principal */
+.abaAtiva {
+  background: var(--cor-principal);
+  border-color: var(--cor-principal);
+  color: #fff;
+}
+
+/* Grade responsiva: quantas colunas couberem, cada uma com no mínimo 270px */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 22px;
+  animation: aparecer 0.4s ease both; /* reinicia a cada troca de aba (key no React) */
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card de tratamento */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+/* Círculo com o emoji */
+.icone {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: var(--cor-suave);
+  font-size: 1.5rem;
+}
+
+.nome {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* flex: 1 empurra o rodapé para a base, alinhando todos os cards da linha */
+.descricao {
+  flex: 1;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Rodapé do card: linha fina em cima, duração e link nas pontas */
+.rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.duracao {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cor-principal);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
