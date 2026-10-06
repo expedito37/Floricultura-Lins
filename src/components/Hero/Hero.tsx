@@ -2,8 +2,8 @@
 // Hero.tsx
 // ----------------------------------------------------------------------------
 // Primeira seção da página, em DUAS COLUNAS: texto e botões à esquerda, foto
-// em formato de arco à direita.
-// Agora a seção também tem uma IMAGEM DE FUNDO (configuracaoSite.hero.backgroundImagem),
+// em formato de arco à direita (na Floricultura Lins, o retrato da fundadora).
+// A seção também tem uma IMAGEM DE FUNDO (configuracaoSite.hero.backgroundImagem),
 // aplicada na <section> inteira para cobrir a largura toda da tela.
 // Enquanto configuracaoSite.hero.imagem estiver vazio, aparece um espaço
 // reservado colorido no lugar da foto.
@@ -17,7 +17,7 @@ import styles from "./Hero.module.css";
 
 export default function Hero() {
   // Desestruturação: pega só os grupos que este componente usa
-  const { hero, marca, whatsapp } = configuracaoSite;
+  const { hero, whatsapp } = configuracaoSite;
 
   // Link do botão principal (abre o WhatsApp com a mensagem padrão)
   const linkWhatsapp = criarLinkWhatsApp(whatsapp.mensagemPadrao);
@@ -76,14 +76,15 @@ export default function Hero() {
       <div className={`container ${styles.grade}`}>
         {/* Coluna do texto */}
         <div className={styles.texto}>
-          {/* "rotulo" é uma classe global do index.css (etiqueta pequena) */}
-        <span className={styles.rotulo}>{hero.etiqueta}</span>
+          {/* Etiqueta pequena acima do título (estilo vem do Hero.module.css,
+              para ter cor própria sobre a foto de fundo) */}
+          <span className={styles.rotulo}>{hero.etiqueta}</span>
 
           {/* Único h1 da página (bom para SEO) */}
           <h1 className={styles.titulo}>{hero.titulo}</h1>
           <p className={styles.subtitulo}>{hero.subtitulo}</p>
 
-          {/* "btn", "btn-primario" e "btn-contorno" também vêm do index.css */}
+          {/* "btn", "btn-primario" e "btn-contorno" vêm do index.css */}
           <div className={styles.acoes}>
             <a
               href={linkWhatsapp}
@@ -93,7 +94,7 @@ export default function Hero() {
             >
               {hero.botaoPrincipal}
             </a>
-            {/* Rola até a seção com id="tratamentos" */}
+            {/* Rola até a seção com id="tratamentos" (catálogo de produtos) */}
             <a href="#tratamentos" className="btn btn-contorno">
               {hero.botaoSecundario}
             </a>
@@ -115,11 +116,14 @@ export default function Hero() {
           {/* Coluna da imagem */}
           <div className={styles.visual}>
             {hero.imagem ? (
-              // Com foto definida no siteConfig
+              // Com foto definida no siteConfig.
+              // O alt usa o nome da pessoa da foto (textoImagemH1); se esse campo
+              // estiver vazio (é opcional), usa um texto genérico como reserva.
+              // O operador ?? usa o texto da direita só quando o da esquerda é undefined.
               <img
                 className={styles.foto}
                 src={hero.imagem}
-                alt={`Ambiente e atendimento da ${marca.nome}`}
+                alt={hero.textoImagemH1 ?? "Foto principal da floricultura"}
               />
             ) : (
               // Sem foto: espaço reservado (role="img" + aria-label para leitores de tela)

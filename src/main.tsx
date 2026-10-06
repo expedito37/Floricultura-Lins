@@ -1,5 +1,5 @@
 // ============================================================================
-// main.tsx — ponto de entrada da Aura Estética
+// main.tsx — ponto de entrada da Floricultura Lins
 // ----------------------------------------------------------------------------
 // Liga o React ao <div id="root"> do index.html e renderiza o <App />.
 // ============================================================================

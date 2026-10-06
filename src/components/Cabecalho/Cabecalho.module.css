@@ -1,8 +1,9 @@
 /* ============================================================================
-   Cabecalho.module.css
+   Cabecalho.module.css  (Floricultura Lins)
    ----------------------------------------------------------------------------
-   Estilo do menu fixo: transparente no topo, branco ao rolar, e no celular
-   uma gaveta lateral que desliza pela direita.
+   Estilo do menu fixo: transparente no topo (sobre a foto escura do Hero, com
+   logo, links e hambúrguer BRANCOS), branco ao rolar (com as cores escuras),
+   e no celular uma gaveta lateral que desliza pela direita.
    ============================================================================ */
 
 /* Barra fixa no topo da janela (não usa backdrop-filter de propósito: ele
@@ -21,7 +22,7 @@
 /* Estado depois de rolar (ou com o menu aberto): fundo branco e sombra leve */
 .solido {
   background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 2px 20px rgba(42, 32, 36, 0.08);
+  box-shadow: 0 2px 20px rgba(36, 48, 42, 0.08);
 }
 
 /* Linha interna: logo à esquerda, menu à direita */
@@ -33,7 +34,6 @@
   gap: 24px;
 }
 
-/* Logo em texto */
 /* Link da logo: imagem + nome lado a lado (flex em linha), alinhados ao centro */
 .logo {
   display: flex; /* coloca os filhos (img e nome) lado a lado */
@@ -43,22 +43,35 @@
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--cor-principal);
   text-decoration: none;
   white-space: nowrap;
 }
 
-/* Imagem da logo dentro do link do header: altura fixa e largura proporcional */
 .logoImagem {
-  height: 40px; /* altura da logo no desktop */
-  width: auto; /* mantém a proporção original da imagem */
-  display: block; /* tira o espaço extra que a imagem inline deixa embaixo */
-  object-fit: contain; /* não corta nem distorce a logo */
+  height: 80px !important; /* O !important força o navegador a aplicar essa altura */
+  width: auto !important; 
+  display: block; 
+  object-fit: contain; 
+  max-height: none !important; /* Remove qualquer limite máximo de altura que possa existir */
 }
 
-.logoTexto{
-  color: #85733c
+
+
+/* Nome da marca ao lado da logo.
+   No topo (cabeçalho transparente sobre a foto escura) fica BRANCO;
+   o transition suaviza a troca de cor quando o cabeçalho vira branco ao rolar. */
+.logoTexto {
+  color: #fff;
+  transition: color 0.3s ease;
+  transform: translateX(-25px);
 }
+
+/* Depois de rolar (fundo branco): o nome volta para a cor principal do site.
+   Antes estava fixo em #85733c, que sumia sobre a foto escura do Hero. */
+.solido .logoTexto {
+  color: var(--cor-principal);
+}
+
 /* Grupo de links (desktop: lado a lado) */
 .nav {
   display: flex;
@@ -73,6 +86,7 @@
   font-weight: 500;
   color: var(--cor-texto);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 /* Sublinhado dourado que cresce a partir do CENTRO ao passar o mouse */
@@ -92,7 +106,7 @@
   width: 100%;
 }
 
-/* Botão "Agendar" do menu: um pouco menor que os botões normais */
+/* Botão de pedido do menu: um pouco menor que os botões normais */
 .botaoMenu {
   padding: 10px 22px;
   font-size: 0.9rem;
@@ -102,6 +116,21 @@
 .hamburguer,
 .fundo {
   display: none;
+}
+
+/* ============================================================================
+   COMPUTADOR (a partir de 901px)
+   ----------------------------------------------------------------------------
+   Com o cabeçalho transparente (sem a classe "solido"), os links ficam BRANCOS
+   para aparecer sobre a foto escura do Hero. Fica dentro de um @media próprio
+   porque no celular os links ficam dentro da gaveta BRANCA e precisam continuar
+   escuros.
+   ============================================================================ */
+@media (min-width: 901px) {
+  /* :not(.solido) = só quando o cabeçalho ainda está transparente */
+  .cabecalho:not(.solido) .link {
+    color: #fff;
+  }
 }
 
 /* ============================================================================
@@ -131,7 +160,14 @@
     height: 2px;
     background: var(--cor-grafite);
     border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  }
+
+  /* Cabeçalho transparente sobre a foto escura: as barras ficam BRANCAS.
+     Com o menu aberto o cabeçalho vira "solido" e elas voltam a ser escuras,
+     o que é certo, porque o X fica sobre a gaveta branca. */
+  .cabecalho:not(.solido) .hamburguer span {
+    background: #fff;
   }
 
   /* Aberto: barra de cima e de baixo giram formando um X, a do meio some */
@@ -171,7 +207,7 @@
     visibility: visible;
   }
 
-  /* Links maiores dentro da gaveta */
+  /* Links maiores dentro da gaveta (escuros, porque o fundo da gaveta é branco) */
   .link {
     font-family: var(--fonte-titulo);
     font-size: 1.35rem;
@@ -190,12 +226,23 @@
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: rgba(42, 32, 36, 0.5);
+    background: rgba(36, 48, 42, 0.5);
   }
 }
-/* No celular a logo fica um pouco menor para sobrar espaço ao hambúrguer */
+
+/* Celular: a logo e o nome ficam menores para sobrar espaço ao hambúrguer.
+   (Antes a logo ficava MAIOR no celular: 42px contra 40px no computador.) */
 @media (max-width: 768px) {
   .logoImagem {
-    height: 42px;
+    height: 34px;
+  }
+}
+
+/* Celulares bem estreitos (até 400px): o nome "Floricultura Lins" é longo,
+   então diminui a fonte para ele não empurrar o hambúrguer para fora da tela */
+@media (max-width: 400px) {
+  .logo {
+    font-size: 1.15rem;
+    gap: 8px;
   }
 }

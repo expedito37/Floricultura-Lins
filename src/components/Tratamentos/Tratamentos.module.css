@@ -1,8 +1,8 @@
 /* ============================================================================
-   Tratamentos.module.css
+   Tratamentos.module.css  (Floricultura Lins = catálogo de PRODUTOS)
    ----------------------------------------------------------------------------
-   Fundo rosa claro, abas de filtro em formato de pílula e cards com texto
-   alinhado à esquerda (diferente dos cards centralizados do Viver Bem).
+   Fundo claro, abas de filtro em formato de pílula e cards com foto no topo,
+   texto alinhado à esquerda e preço em destaque.
    ============================================================================ */
 
 /* Fundo da seção (alterna com as seções de fundo claro) */
@@ -75,7 +75,7 @@
   }
 }
 
-/* Card de tratamento */
+/* Card de produto */
 .card {
   display: flex;
   flex-direction: column;
@@ -90,6 +90,22 @@
 .card:hover {
   transform: translateY(-4px);
   box-shadow: var(--sombra);
+}
+
+/* NOVO: foto do produto no topo do card.
+   As margens negativas (-28px) anulam o padding do card, então a foto ocupa
+   a largura toda e encosta nas bordas de cima, esquerda e direita.
+   width: calc(100% + 56px) compensa os 28px de cada lado.
+   aspect-ratio mantém todas as fotos com a mesma proporção (4 por 3),
+   e object-fit: cover corta o excesso da foto em vez de deformá-la.
+   O raio só nos cantos de cima acompanha a curva do card. */
+.imagem {
+  display: block;
+  width: calc(100% + 56px);
+  margin: -28px -28px 6px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--raio) var(--raio) 0 0;
 }
 
 /* Círculo com o emoji */
@@ -109,7 +125,7 @@
   font-size: 1.2rem;
 }
 
-/* flex: 1 empurra o rodapé para a base, alinhando todos os cards da linha */
+/* flex: 1 empurra o preço e o rodapé para a base, alinhando todos os cards da linha */
 .descricao {
   flex: 1;
   margin: 0;
@@ -117,7 +133,16 @@
   color: var(--cor-texto-suave);
 }
 
-/* Rodapé do card: linha fina em cima, duração e link nas pontas */
+/* NOVO: linha do preço. Fica em negrito e na cor principal para chamar a atenção
+   sem competir com o nome do produto. */
+.preco {
+  margin: 4px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cor-principal);
+}
+
+/* Rodapé do card: linha fina em cima, prazo de entrega e link nas pontas */
 .rodape {
   display: flex;
   justify-content: space-between;

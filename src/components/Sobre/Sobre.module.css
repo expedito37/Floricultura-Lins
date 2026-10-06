@@ -1,8 +1,10 @@
 /* ============================================================================
-   Sobre.module.css
+   Sobre.module.css  (Floricultura Lins)
    ----------------------------------------------------------------------------
-   Duas colunas: colagem de blocos coloridos (no lugar de fotos) e texto com
-   lista numerada de valores.
+   Duas colunas: colagem de duas fotos (uma grande e uma pequena sobreposta) e
+   texto com lista numerada de valores.
+   Se uma foto não existir no siteConfig, o bloco continua aparecendo com o
+   degradê de cor como reserva.
    ============================================================================ */
 
 /* Grade: coluna da colagem um pouco menor que a do texto */
@@ -19,15 +21,17 @@
   min-height: 460px;
 }
 
-/* Bloco grande: canto superior esquerdo */
+/* Bloco grande: canto superior esquerdo.
+   overflow: hidden corta a foto nos cantos arredondados do bloco. */
 .blocoGrande {
   position: absolute;
   top: 0;
   left: 0;
   width: 78%;
   height: 84%;
+  overflow: hidden;
   border-radius: var(--raio);
-  background: linear-gradient(150deg, var(--cor-suave), var(--cor-detalhe));
+  background: linear-gradient(150deg, var(--cor-suave), var(--cor-detalhe)); /* reserva enquanto a foto carrega */
   box-shadow: var(--sombra);
 }
 
@@ -38,10 +42,22 @@
   bottom: 0;
   width: 52%;
   height: 52%;
+  overflow: hidden;
   border-radius: var(--raio);
   border: 8px solid var(--cor-fundo); /* recorta visualmente o bloco grande atrás */
-  background: linear-gradient(160deg, var(--cor-principal), var(--cor-principal-escura));
+  background: linear-gradient(160deg, var(--cor-principal), var(--cor-principal-escura)); /* reserva enquanto a foto carrega */
   box-shadow: var(--sombra);
+}
+
+/* NOVO: foto dentro de cada bloco.
+   width e height 100% fazem a foto ocupar o bloco inteiro, e object-fit: cover
+   corta o excesso em vez de esticar ou deformar a imagem. */
+.blocoGrande img,
+.blocoPequeno img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Parágrafo principal */

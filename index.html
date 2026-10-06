@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- ============================================================================
-     index.html — Aura Estética
+     index.html — Floricultura Lins
      Única página HTML do projeto (SPA React + Vite). O React desenha o site
      dentro da <div id="root">. Aqui ficam título, descrição, ícone e fontes.
      ============================================================================ -->
@@ -12,14 +12,25 @@
     <!-- Faz o site se ajustar à largura da tela no celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Cor da barra do navegador no celular (combina com a cor principal) -->
-    <meta name="theme-color" content="#8c3b5a" />
+    <!-- Cor da barra do navegador no celular.
+         Deve ser igual à cor principal (--cor-principal) que será definida no index.css -->
+    <meta name="theme-color" content="#7a1f3d" />
 
-    <!-- Ícone da aba do navegador (favicon), usando a imagem.webp da pasta public -->
-<link rel="icon" type="image/webp" href="/aura2.webp" />
+    <!-- Ícone da aba do navegador (favicon) TEMPORÁRIO para a demonstração.
+         É um SVG escrito direto no link (data URI), com o emoji de flor, então
+         não precisa de arquivo na pasta public e não tem direitos autorais.
+         %22 é o símbolo de aspas dentro da URL.
+         PARA TROCAR PELO ÍCONE REAL: coloque o arquivo em /public e use, por exemplo:
+         <link rel="icon" type="image/webp" href="/favicon.webp" /> -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/logo.webp"
+    />
 
     <!-- Fontes do Google carregadas aqui no HTML (mais rápido que @import no CSS):
-         Playfair Display (títulos), DM Sans (textos) e Cinzel Decorative (fantasia/luxo) -->
+         Playfair Display (títulos), DM Sans (textos) e Cinzel Decorative (detalhes decorativos).
+         Mantidas iguais para não quebrar o CSS atual; troque quando definir a identidade visual. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Link completo do Google Fonts (css2) com as famílias e pesos usados no site -->
@@ -28,11 +39,12 @@
       rel="stylesheet"
     />
 
-    <!-- Título da aba e descrição para o Google (SEO) -->
-    <title>Aura Estética — Cuidado que revela o seu melhor</title>
+    <!-- Título da aba e descrição para o Google (SEO).
+         A descrição aparece embaixo do título nos resultados de busca. -->
+    <title>Floricultura Lins — Flores que contam o que as palavras não alcançam</title>
     <meta
       name="description"
-      content="Aura Estética: tratamentos faciais, corporais e injetáveis com protocolos personalizados. Agende sua avaliação pelo WhatsApp."
+      content="Floricultura Lins: buquês, arranjos e plantas montados à mão, com flores frescas e entrega no mesmo dia. Faça seu pedido pelo WhatsApp."
     />
   </head>
   <body>

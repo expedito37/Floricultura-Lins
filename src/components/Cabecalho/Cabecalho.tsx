@@ -48,7 +48,7 @@ export default function Cabecalho() {
   // Fecha a gaveta (usado ao clicar em um link ou no fundo escuro)
   const fecharMenu = () => setMenuAberto(false);
 
-  // Link do botão "Agendar" do menu
+  // Link do botão de pedido do menu (abre o WhatsApp com a mensagem padrão)
   const linkWhatsapp = criarLinkWhatsApp(configuracaoSite.whatsapp.mensagemPadrao);
 
   return (
@@ -57,17 +57,21 @@ export default function Cabecalho() {
       className={`${styles.cabecalho} ${rolou || menuAberto ? styles.solido : ""}`}
     >
       <div className={`container ${styles.interno}`}>
-        {/* Logo em imagem: clicar leva ao topo (id="inicio" está no Hero) */}
+        {/* Logo: clicar leva ao topo (id="inicio" está no Hero) */}
         <a href="#inicio" className={styles.logo} onClick={fecharMenu}>
+          {/* alt="" marca a imagem como DECORATIVA: o nome da marca já é lido
+              pelo texto ao lado (logoTexto). Se fosse repetido no alt, o leitor
+              de tela leria "Floricultura Lins" duas vezes seguidas. */}
           <img
             className={styles.logoImagem} // classe própria da imagem (a styles.cabecalho é do <header>)
             src={cabecalho.imagem}
-            alt={`Logo da ${marca.nome}`}
+            alt=""
           />
-           <span className={styles.logoTexto}>{marca.nome}</span>
+          {/* Nome da marca em texto (fica ao lado da imagem do logo) */}
+          <span className={styles.logoTexto}>{marca.nome}</span>
         </a>
 
-        {/* Links do menu + botão de agendar. No celular vira a gaveta lateral */}
+        {/* Links do menu + botão de pedido. No celular vira a gaveta lateral */}
         <nav
           id="menu-principal"
           aria-label="Menu principal"

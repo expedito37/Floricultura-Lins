@@ -10,7 +10,12 @@
   position: fixed; /* preso à janela: acompanha a rolagem */
   right: 20px;
   bottom: 20px;
-  z-index: 1000; /* acima do cabeçalho (900) e da gaveta do menu (1001 é só a gaveta aberta) */
+
+  /* z-index 800, ABAIXO do cabeçalho (900). O cabeçalho cria um "andar" próprio
+     que guarda a gaveta do menu e o fundo escuro. Com o botão em 1000 (acima de
+     900), ele aparecia POR CIMA da gaveta aberta no celular. Em 800 a gaveta e
+     o fundo escuro cobrem o botão, como deve ser. */
+  z-index: 800;
 
   display: flex;
   align-items: center;
@@ -50,8 +55,8 @@
   }
 }
 
-/* O index.css encurta TODAS as animações para quem prefere menos movimento, mas uma
-   animação infinita encurtada ficaria piscando. Por isso aqui ela é desligada de vez. */
+/* Quem prefere menos movimento no sistema não vê o anel pulsando:
+   uma animação infinita incomoda, então ela é desligada de vez. */
 @media (prefers-reduced-motion: reduce) {
   .botao {
     animation: none;

@@ -1,9 +1,10 @@
 // ============================================================================
 // Sobre.tsx
 // ----------------------------------------------------------------------------
-// Seção "Sobre a clínica" em duas colunas: uma colagem decorativa à esquerda
-// (dois blocos coloridos que fazem o papel de fotos) e, à direita, título,
-// texto e a lista numerada de valores. Os textos vêm de configuracaoSite.sobre.
+// Seção "Sobre a floricultura" em duas colunas: uma colagem com duas fotos à
+// esquerda (uma grande e uma pequena sobreposta) e, à direita, título, texto
+// e a lista numerada de valores. Os textos e as imagens vêm de
+// configuracaoSite.sobre.
 // ============================================================================
 import { configuracaoSite } from "../../config/siteConfig";
 import styles from "./Sobre.module.css";
@@ -15,15 +16,23 @@ export default function Sobre() {
     // id="sobre" é o destino do link "Sobre" do menu. "secao" (global) dá o espaçamento padrão
     <section id="sobre" className="secao">
       <div className={`container ${styles.grade}`}>
-        {/* Colagem decorativa. aria-hidden = leitores de tela ignoram.
-            Quando tiver fotos, troque cada bloco por uma <img> com a mesma classe. */}
+        {/* Colagem de fotos. aria-hidden = leitores de tela ignoram, e por isso
+            o alt das imagens fica vazio (são decorativas, o texto ao lado já conta a história).
+            Cada <img> só é desenhada se o campo existir no siteConfig (são opcionais);
+            sem foto, o bloco continua aparecendo com a cor de fundo do CSS.
+            loading="lazy" faz o navegador baixar a foto só quando ela chega perto da tela. */}
         <div className={styles.colagem} aria-hidden="true">
-          <div className={styles.blocoGrande}>  
-            <img src={sobre.imagSobreGrande} alt=""/></div>
+          <div className={styles.blocoGrande}>
+            {sobre.imagSobreGrande && (
+              <img src={sobre.imagSobreGrande} alt="" loading="lazy" />
+            )}
+          </div>
           <div className={styles.blocoPequeno}>
-             <img src={sobre.imagSobrePequeno} alt=""/></div>
-      </div>
-       
+            {sobre.imagSobrePequeno && (
+              <img src={sobre.imagSobrePequeno} alt="" loading="lazy" />
+            )}
+          </div>
+        </div>
 
         {/* Coluna de texto */}
         <div>
@@ -31,7 +40,7 @@ export default function Sobre() {
           <h2 className="tituloSecao">{sobre.titulo}</h2>
           <p className={styles.texto}>{sobre.texto}</p>
 
-          {/* Lista ordenada dos valores da clínica */}
+          {/* Lista ordenada dos valores da floricultura */}
           <ol className={styles.valores}>
             {sobre.valores.map((valor, indice) => (
               <li key={valor.id} className={styles.valor}>

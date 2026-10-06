@@ -1,14 +1,15 @@
 // ============================================================================
 // ChamadaFinal.tsx
 // ----------------------------------------------------------------------------
-// Faixa colorida de largura total, antes do contato, convidando a visitante a
-// agendar. Serve como "último empurrão" depois de ela ter visto tratamentos,
-// equipe, depoimentos e dúvidas. Dados: configuracaoSite.chamadaFinal.
+// Faixa colorida de largura total, antes do contato, convidando o visitante a
+// fazer o pedido. Serve como "último empurrão" depois de ele ter visto os
+// produtos, as floristas e as dúvidas. Dados: configuracaoSite.chamadaFinal.
 // ============================================================================
 import { configuracaoSite, criarLinkWhatsApp } from "../../config/siteConfig";
 import styles from "./ChamadaFinal.module.css";
 
 export default function ChamadaFinal() {
+  // Desestruturação: pega só os grupos que este componente usa
   const { chamadaFinal, whatsapp } = configuracaoSite;
 
   // Link do botão (mensagem padrão do WhatsApp)

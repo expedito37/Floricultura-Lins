@@ -1,24 +1,26 @@
 /* ============================================================================
-   index.css — estilos GLOBAIS da Aura Estética
+   index.css — estilos GLOBAIS da Floricultura Lins
    ----------------------------------------------------------------------------
    Variáveis de cor/fonte (em português), regras base e classes utilitárias
    reaproveitadas por vários componentes (.container, .secao, .rotulo, .btn).
    As fontes são carregadas no index.html (não aqui), o que evita o @import
    e carrega mais rápido.
+
+   PARA TROCAR O VISUAL DE TODO O SITE: mude só as cores do bloco :root abaixo.
    ============================================================================ */
 
 :root {
-  /* Paleta: ameixa (principal) + nude/dourado (detalhes) + grafite (texto) */
-  --cor-principal: #8c3b5a;        /* ameixa — botões e destaques */
-  --cor-principal-escura: #6d2c46; /* hover do principal */
-  --cor-suave: #f5e9ec;            /* rosa muito claro — fundos alternados */
-  --cor-detalhe: #c9a27e;          /* dourado nude — etiquetas e estrelas */
-  --cor-grafite: #2a2024;          /* fundo escuro (rodapé, chamada final) */
-  --cor-fundo: #eee6e0;            /* fundo geral da página */
+  /* Paleta floral: bordô-rosa (principal) + dourado (detalhes) + verde-folha escuro (fundos escuros) */
+  --cor-principal: #7a1f3d;        /* bordô-rosa — botões e destaques (igual ao theme-color do index.html) */
+  --cor-principal-escura: #5c1730; /* hover do principal */
+  --cor-suave: #fbeef1;            /* rosa muito claro — fundos alternados */
+  --cor-detalhe: #d9a441;          /* dourado — etiquetas, estrelas e foco do teclado */
+  --cor-grafite: #24302a;          /* verde-folha escuro — rodapé, chamada final e títulos */
+  --cor-fundo: #fbf6f2;            /* creme — fundo geral da página */
   --cor-superficie: #ffffff;       /* fundo de cards */
   --cor-texto: #2b2426;            /* texto principal */
   --cor-texto-suave: #6b5f63;      /* texto secundário */
-  --cor-borda: #eadfe1;            /* bordas discretas */
+  --cor-borda: #f0dfe3;            /* bordas discretas */
   --cor-whatsapp: #25d366;         /* verde oficial do WhatsApp */
 
   --fonte-titulo: "Playfair Display", Georgia, serif;
@@ -26,7 +28,7 @@
 
   --largura-max: 1200px;  /* largura máxima do conteúdo */
   --raio: 16px;           /* arredondamento padrão de cards */
-  --sombra: 0 10px 30px rgba(109, 44, 70, 0.10);
+  --sombra: 0 10px 30px rgba(122, 31, 61, 0.10); /* sombra na cor principal (rgb de #7a1f3d) */
   --altura-cabecalho: 76px; /* usada no Cabecalho e no scroll-padding abaixo */
 }
 
@@ -44,7 +46,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--cor-fundo);
+  background: rgb(243, 234, 234);
   color: var(--cor-texto);
   font-family: var(--fonte-corpo);
   line-height: 1.6;
@@ -76,7 +78,7 @@ img { max-width: 100%; display: block; }
   padding: 88px 0;
 }
 
-/* Etiqueta pequena acima dos títulos (ex.: "TRATAMENTOS") */
+/* Etiqueta pequena acima dos títulos (ex.: "PRODUTOS") */
 .rotulo {
   display: inline-block;
   margin-bottom: 12px;

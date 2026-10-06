@@ -1,5 +1,5 @@
 /* ============================================================================
-   Destaques.module.css
+   Destaques.module.css  (Floricultura Lins)
    ----------------------------------------------------------------------------
    Cartão branco com 4 números lado a lado, sobreposto ao final do Hero.
    ============================================================================ */
@@ -59,6 +59,15 @@
 .legenda {
   font-size: 0.9rem;
   color: var(--cor-texto-suave);
+}
+
+/* ----- Tablet e celular (até 900px): o Hero fica com só 48px de espaço embaixo
+   (veja Hero.module.css), então o cartão sobe menos (24px) para não encostar
+   na foto do Hero ----- */
+@media (max-width: 900px) {
+  .faixa {
+    margin-top: -24px;
+  }
 }
 
 /* ----- Celular: 2 colunas por linha, sem divisórias ----- */

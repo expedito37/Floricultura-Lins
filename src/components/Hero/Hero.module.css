@@ -27,11 +27,12 @@
   background-size: cover; /* cobre a seção toda sem distorcer */
   background-position: center; /* mantém o centro da foto sempre visível */
   background-repeat: no-repeat; /* não repete a imagem */
-  background-color: #1a1512; /* cor de segurança enquanto a imagem carrega ou se não houver imagem */
+  background-color: var(--cor-grafite); /* cor de segurança enquanto a imagem carrega ou se não houver imagem */
 }
 
-/* Película escura por cima da imagem de fundo (degradê da esquerda para a direita) */
-/* Película escura por cima da imagem de fundo (degradê da esquerda para a direita) */
+/* Película escura por cima da imagem de fundo (degradê da esquerda para a direita).
+   Garante que o texto branco seja legível, não importa qual foto esteja ao fundo
+   (importante agora, porque as fotos de exemplo são sorteadas e podem ser claras). */
 .hero::before {
   content: "";
   position: absolute;
@@ -148,6 +149,19 @@
   gap: 20px;
 }
 
+/* Etiqueta pequena acima do título (hero.etiqueta).
+   Dourada (cor de detalhe do site) para se destacar sobre a foto escurecida
+   e combinar com as estrelas e o foco do teclado. */
+.rotulo {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cor-detalhe);
+}
+
 /* Título principal (h1): fluido, cresce/diminui conforme a largura da tela.
    Branco, porque fica sobre a imagem escurecida */
 .titulo {
@@ -174,10 +188,23 @@
   gap: 14px;
   margin-top: 8px;
 }
-.rotulo{
-  color:#ffff;
-  margin-top: 10px;;
+
+/* Botão de contorno SOBRE A FOTO: o estilo global (index.css) pinta o texto e a
+   borda com a cor principal (bordô), que some sobre o fundo escuro.
+   Aqui, só dentro do Hero, ele fica branco.
+   :global(.btn-contorno) é necessário porque "btn-contorno" é uma classe global
+   do index.css, e o CSS Module renomearia qualquer classe escrita sem :global. */
+.acoes :global(.btn-contorno) {
+  color: #fff;
+  border-color: #fff;
 }
+
+/* No hover, o fundo branco com texto na cor principal mantém o contraste */
+.acoes :global(.btn-contorno):hover {
+  background: #fff;
+  color: var(--cor-principal);
+}
+
 /* ---------------------------------------------------------------------------
    COLUNA DA DIREITA (texto curto + imagem, um ao lado do outro)
    --------------------------------------------------------------------------- */
@@ -210,12 +237,15 @@
   gap: 8px;
 }
 
-/* Título do texto ao lado da imagem (h2 com a classe textoImagemH1) */
+/* Título do texto ao lado da imagem (h2 com a classe textoImagemH1).
+   Usa a mesma fonte dos títulos do site (--fonte-titulo, Playfair Display).
+   A fonte "Bodoni Moda" que estava aqui não é carregada no index.html, então o
+   navegador a ignorava e usava uma serifa qualquer. */
 .textoImagemH1 {
   font-size: 1.5rem;
   line-height: 1.2;
   margin: 0;
-  font-family: "Bodoni Moda", serif; /* alto contraste, estilo revista */
+  font-family: var(--fonte-titulo);
   color: #fff; /* branco sobre o fundo escurecido */
 }
 
@@ -243,7 +273,7 @@
   width: 100%;
   aspect-ratio: 4 / 5; /* proporção retrato */
   object-fit: cover; /* preenche sem distorcer */
-  object-position: 65% center;
+  object-position: center; /* centralizado: funciona com qualquer foto de retrato */
   border-radius: 999px 999px 24px 24px; /* topo em arco */
 }
 
@@ -255,8 +285,8 @@
   width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: 999px 999px 24px 24px;
-  background: #e8dcd3; /* cor provisória; troque pela cor da marca */
-  color: #7a6a5f;
+  background: var(--cor-suave); /* acompanha a paleta do site */
+  color: var(--cor-texto-suave);
   font-size: 1rem;
   font-weight: 500;
 }
@@ -285,6 +315,7 @@
   .texto {
     align-items: center;
     text-align: center;
+    margin-top: 10px;
   }
 
   .acoes {
