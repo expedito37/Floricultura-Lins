@@ -1,8 +1,8 @@
 /* ============================================================================
    WhatsAppFlutuante.module.css
    ----------------------------------------------------------------------------
-   Botão verde fixo no canto inferior direito: pílula com texto no computador,
-   círculo só com o ícone no celular, com um anel pulsante em volta.
+   Botão verde fixo no canto inferior direito: no computador é uma pílula só
+   com texto; no celular é um círculo só com o ícone, com um anel pulsante.
    ============================================================================ */
 
 /* Botão em formato de pílula */
@@ -21,7 +21,7 @@
   align-items: center;
   gap: 10px;
   height: 58px;
-  padding: 0 22px 0 16px;
+  padding: 0 24px; /* no computador não tem ícone, então o espaço é igual dos dois lados */
 
   border-radius: 999px;
   background: var(--cor-whatsapp);
@@ -40,6 +40,15 @@
 .botao:hover {
   transform: translateY(-3px);
   animation-play-state: paused; /* para o anel enquanto o mouse está em cima */
+}
+
+/* Ícone (desenho) do WhatsApp: escondido no computador, aparece só no celular */
+.icone {
+  display: none; /* no computador o botão fica só com o texto */
+  width: 28px; /* tamanho do desenho */
+  height: 28px;
+  flex-shrink: 0; /* não deixa o desenho ser espremido pelo flex */
+  fill: currentColor; /* pinta o desenho com a cor do botão (branco) */
 }
 
 /* O anel é uma sombra sem desfoque que cresce e some */
@@ -71,6 +80,11 @@
     width: 58px;
     padding: 0;
     justify-content: center;
+  }
+
+  /* Mostra o desenho do WhatsApp só aqui no celular */
+  .icone {
+    display: block;
   }
 
   /* Esconde o texto (o aria-label do link continua avisando leitores de tela) */

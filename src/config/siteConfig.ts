@@ -159,7 +159,7 @@ export interface ConfiguracaoSite {
 // escolher a aba > formato CSV). A planilha tem duas colunas: "id" e "preco".
 // Deixe "" (vazio) para usar só os preços escritos neste arquivo (campo "preco").
 // URL da planilha do Google Sheets publicada como CSV para atualização dos preços
-export const urlPlanilhaPrecos = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDcvQHIDRwFz9y54GEmQFjDmFmYSJlkqQoLJ-1TF4IgbNNPLG6kk0faqTzYTOGQz-7ITbArMPHRlbG/pub?output=csv";
+export const urlPlanilhaPrecos = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkKuglbhyiToMqDhU9Qfb4_6AQGTk4TOTeOXgIN7j5j0T1WkYzHDzmEqNPHXP9fbi5qiVJglBWiwD_/pub?output=csv";
 
 
 // ----------------------------------------------------------------------------
@@ -220,7 +220,7 @@ export const configuracaoSite: ConfiguracaoSite = {
     imagem: "/bu2.webp", // foto em arco (coluna da direita)
     textoImagemH1: "Lúcia Lins",
     textoImagem: "Cada arranjo é montado como se fosse para alguém da família.",
-    backgroundImagem: "/campo.webp", // imagem de fundo do Hero
+    backgroundImagem: "/hero2.webp", // imagem de fundo do Hero
   },
 
   // Faixa de números em destaque

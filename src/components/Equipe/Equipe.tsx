@@ -4,6 +4,8 @@
 // Cards das pessoas da equipe. Se a pessoa tiver foto (campo "imagem" no
 // siteConfig), mostra a foto; se não tiver, mostra um círculo colorido com as
 // INICIAIS do nome. Os dados vêm de configuracaoSite.equipe.
+// Se a pessoa estiver sem nome, o título do card não é desenhado e a foto
+// ganha uma descrição baseada na especialidade.
 // ============================================================================
 import { configuracaoSite } from "../../config/siteConfig";
 import styles from "./Equipe.module.css";
@@ -42,30 +44,37 @@ export default function Equipe() {
 
         <div className={styles.grade}>
           {/* .map cria um card para cada pessoa da lista do siteConfig */}
-          {equipe.membros.map((membro) => (
-            <article key={membro.id} className={styles.card}>
-              {/* Foto ou iniciais */}
-              <div className={styles.avatar}>
-                {membro.imagem ? (
-                  // loading="lazy": o navegador só baixa a foto perto de ela aparecer na tela
-                  <img
-                    src={membro.imagem}
-                    alt={`Foto de ${membro.nome}`}
-                    loading="lazy"
-                  />
-                ) : (
-                  // aria-hidden: o nome já aparece em texto logo abaixo
-                  <span className={styles.iniciais} aria-hidden="true">
-                    {pegarIniciais(membro.nome)}
-                  </span>
-                )}
-              </div>
+          {equipe.membros.map((membro) => {
+            // Nome sem espaços nas pontas; vazio significa "pessoa sem nome cadastrado"
+            const nome = membro.nome.trim();
 
-              <h3 className={styles.nome}>{membro.nome}</h3>
-              <p className={styles.especialidade}>{membro.especialidade}</p>
-              <p className={styles.bio}>{membro.bio}</p>
-            </article>
-          ))}
+            return (
+              <article key={membro.id} className={styles.card}>
+                {/* Foto ou iniciais */}
+                <div className={styles.avatar}>
+                  {membro.imagem ? (
+                    // loading="lazy": o navegador só baixa a foto perto de ela aparecer na tela
+                    // alt: usa o nome; sem nome, descreve pela especialidade
+                    <img
+                      src={membro.imagem}
+                      alt={nome ? `Foto de ${nome}` : `Foto da equipe: ${membro.especialidade}`}
+                      loading="lazy"
+                    />
+                  ) : (
+                    // aria-hidden: o nome já aparece em texto logo abaixo
+                    <span className={styles.iniciais} aria-hidden="true">
+                      {pegarIniciais(nome)}
+                    </span>
+                  )}
+                </div>
+
+                {/* O título só é desenhado quando existe um nome */}
+                {nome && <h3 className={styles.nome}>{nome}</h3>}
+                <p className={styles.especialidade}>{membro.especialidade}</p>
+                <p className={styles.bio}>{membro.bio}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
